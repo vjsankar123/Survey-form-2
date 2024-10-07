@@ -1,26 +1,44 @@
 $(document).ready(function () {
+    // Hide sections on page load
+    $(".right").hide();
+    $(".footer").hide();
+
+    // Start button functionality
     $("#start-btn").on("click", function () {
         $(".intro").hide();
         $(".right").show();
     });
 
+    // Next button functionality
     $("#next-btn").on("click", function () {
         $(".right").hide();
         $(".footer").show();
     });
 
+    // Previous button functionality
     $("#prev-btn").on("click", function () {
         $(".footer").hide();
         $(".right").show();
     });
 
+    // Submit button functionality
     $("#submit-btn").on("click", function () {
         toastr.success("Thank you for your submission!");
 
-        // Optionally reset the form or navigate to another page
-        // document.getElementById("your-form-id").reset();
+        resetForm();
     });
 });
+
+ 
+
+// Function to reset the form (if needed)
+function resetForm() {
+// Hide all sections
+$('#main-section, #footer-section').hide();
+
+// Show the intro section again
+$('#intro-section').show();
+}
 
 // Show/hide fields based on current status selection
 function showFields() {
@@ -31,49 +49,74 @@ function showFields() {
 }
 
 
+
 // function updateFamiliarityValue(value) {
 //     document.getElementById('familiarity-value').textContent = value;
 // }
 
-function showFamiliarityMeaning(value) {
-    const meanings = {
-        1: "Not familiar at all",
-        2: "Slightly familiar",
-        3: "Moderately familiar",
-        4: "Very familiar",
-        5: "Extremely familiar"
-    };
-    document.getElementById('familiarity-meaning').textContent = meanings[value];
+
+function updateFamiliarityValue(value) {
+    // Show the output div when the user interacts with the slider
+    document.getElementById('familiarity-output').style.display = 'block';
+
+    // Update the displayed rating number
+    document.getElementById('familiarity-value').textContent = value;
+
+    // Update the meaning based on the value
+    let meaning;
+    switch(value) {
+        case '1':
+            meaning = 'Not Familiar';
+            break;
+        case '2':
+            meaning = 'Slightly Familiar';
+            break;
+        case '3':
+            meaning = 'Moderately Familiar';
+            break;
+        case '4':
+            meaning = 'Very Familiar';
+            break;
+        case '5':
+            meaning = 'Extremely Familiar';
+            break;
+        default:
+            meaning = 'Unknown';
+    }
+
+    // Update the meaning text
+    document.getElementById('familiarity-meaning').textContent = meaning;
 }
 
 
 
-// Create and insert the marker line into the slider container
-const sliderContainer = document.querySelector('.slider-container');
-const marker = document.createElement('div');
-marker.className = 'marker';
+function updateValue(val) {
+    document.getElementById('slider-value').innerText = 'Selected Value: ' + val + '%';
+}
 
-// Create a span for the text inside the marker
-const markerText = document.createElement('span');
-markerText.className = 'marker-text';
-marker.appendChild(markerText);
-sliderContainer.appendChild(marker);
-
-function updateValue(value) {
-    const slider = document.getElementById('goal-effectiveness');
-    const display = document.getElementById('slider-value');
-
-    // Update the displayed value
-    display.textContent = `Selected Value: ${value}%`;
-    markerText.textContent = `${value}%`; // Update marker text
-
-    // Calculate the left position for the marker
-    const percentage = value / 100;
-    const sliderWidth = slider.clientWidth;
-    const markerPosition = percentage * sliderWidth;
-
-    // Position the marker
-    marker.style.left = `${markerPosition}px`;
+function showMeaning(val) {
+    let meaning = '';
+    switch (parseInt(val)) {
+        case 0:
+            meaning = 'Very Ineffective';
+            break;
+        case 20:
+            meaning = 'Somewhat Ineffective';
+            break;
+        case 40:
+            meaning = 'Neutral';
+            break;
+        case 60:
+            meaning = 'Somewhat Effective';
+            break;
+        case 80:
+            meaning = 'Effective';
+            break;
+        case 100:
+            meaning = 'Highly Effective';
+            break;
+    }
+    document.getElementById('slider-meaning').innerText = meaning;
 }
 
 

@@ -34,7 +34,7 @@
 
     <!-- Main Content -->
     <div class="container">
-        <div class="intro left section">
+        <div class="intro left section" id="intro-section">
             <img src="discuss.jpg" alt="Goal Setting Image">
             <div class="para">
                 <p class="content">Welcome to the Goal Setting Program! Before we begin, we’d like to understand your
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="right section">
+        <div class="right section" id="main-section">
             <h2>Participant Information</h2>
             <div class="main-content">
 
@@ -129,23 +129,36 @@
         </div>
 
         <!-- Slide 1: Goal Setting -->
-        <div class="footer" style="display:none">
+        <div class="footer" style="display:none" id="footer-section">
             <h2> Current Knowledge and Practices
             </h2>
             <div class="slide1">
                 <label for="goal-familiarity">1. How familiar are you with the concept of goal setting?</label>
                 <div class="linear-scale-container">
-                    <input type="range" id="goal-familiarity" name="familiarity" min="1" max="5" step="1" value="1"
-                        oninput="updateFamiliarityValue(this.value)" onclick="showFamiliarityMeaning(this.value)">
-                    <div class="scale-labels">
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                    </div>
-                    
-                    <div id="familiarity-meaning"></div>
+                <input
+                            type="range"
+                            id="goal-familiarity"
+                            name="familiarity"
+                            min="1"
+                            max="5"
+                            step="1"
+                            value="1"
+                            oninput="updateFamiliarityValue(this.value)" />
+
+                        <!-- Numbered labels below the slider with lines -->
+                        <div class="scale-lines">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                        </div>
+
+                        <!-- Initially hidden output area for value and meaning -->
+                        <div id="familiarity-output" style="display: none">
+                            Your rating: <span id="familiarity-value">1</span> -
+                            <span id="familiarity-meaning">Not Familiar</span>
+                        </div>
                 </div>
 
             </div>
@@ -176,21 +189,21 @@
             </div>
 
             <!-- Effectiveness of Goal Setting (Slider) -->
-            <label for="goal-effectiveness">4. How effective do you find your current goal-setting
-                practices?</label>
-            <div class="slider-container">
-                <input type="range" id="goal-effectiveness" class="slider" name="effectiveness" min="0" max="100"
-                    step="20" value="0" list="tickmarks" oninput="updateValue(this.value)">
-                <datalist id="tickmarks">
-                    <option value="0" label="0%"></option>
-                    <option value="20"></option>
-                    <option value="40"></option>
-                    <option value="60"></option>
-                    <option value="80"></option>
-                    <option value="100" label="100%"></option>
-                </datalist>
-                <div class="value-display" id="slider-value">Selected Value: 0%</div>
-            </div>
+            <label for="goal-effectiveness">4. How effective do you find your current goal-setting practices?</label>
+<div class="slider-container">
+    <input type="range" id="goal-effectiveness" class="custom-slider" name="effectiveness" min="0" max="100" step="20"
+        value="0" list="tickmarks" oninput="updateValue(this.value)" onclick="showMeaning(this.value)">
+    <div class="custom-scale-lines">
+        <span value="0"></span>
+        <span value="20"></span>
+        <span value="40"></span>
+        <span value="60"></span>
+        <span value="80"></span>
+        <span value="100"></span>
+    </div>
+    <div class="slider-value-display" id="slider-value">Selected Value: 0%</div>
+    <div class="slider-meaning" id="slider-meaning"></div>
+</div>
 
             <!-- Open-Ended Text Boxes -->
             <label for="goal-challenges">5. What challenges do you face in achieving your goals?</label>
